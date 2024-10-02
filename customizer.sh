@@ -5,16 +5,12 @@ sudo snap refresh
 
 
 ### Customize settings ###
-## Set dark theme
-xfconf-query -c xsettings -p /Net/ThemeName "Greybird-dark"
-xfconf-query -c xfwm4 -p /general/theme "Greybird-dark"
-xfwm4 --replace &
-
 ## Download Remakers wallpapers and set the dark one
-wget https://github.com/ReMakersLab/XubuntuCustomizations/blob/master/images/wallpapers/remakers_wallpaper_4k_dark.png?raw=true -O "/home/$USER/Pictures/remakers_wallpaper_4k_dark.png"
+WALLPAPER_PATH="/home/$USER/Pictures/remakers_wallpaper_4k_dark.png"
+wget https://github.com/ReMakersLab/XubuntuCustomizations/blob/master/images/wallpapers/remakers_wallpaper_4k_dark.png?raw=true -O $WALLPAPER_PATH
 wget https://github.com/ReMakersLab/XubuntuCustomizations/blob/master/images/wallpapers/remakers_wallpaper_4k_light.png?raw=true -O "/home/$USER/Pictures/remakers_wallpaper_4k_light.png"
 
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorVirtual1/workspace0/last-image -s "/home/$USER/Pictures/remakers_wallpaper_4k_dark.png"
+pcmanfm-qt --set-wallpaper "$WALLPAPER_PATH" --wallpaper-mode fit
 
 ## Customize Firefox
 # Open and close Firefox to create profile
@@ -28,9 +24,7 @@ echo 'user_pref("browser.startup.homepage", "https://www.remakers.it");' >> "$PR
 echo 'user_pref("browser.search.defaultenginename", "DuckDuckGo");' >> "$PROFILE_DIR/user.js"
 
 # Install uBlock Origin extension
-#FIREFOX_POLICIES_DIR=/etc/firefox/policies
-FIREFOX_POLICIES_DIR="/home/$USER/snap/firefox/common/opt/firefox/policies"
-sudo mkdir -p $FIREFOX_POLICIES_DIR
+FIREFOX_POLICIES_DIR_ETC=/etc/firefox/policies
 echo '{
 	"policies": {
 		"Extensions": {
@@ -43,4 +37,4 @@ echo '{
 		}
 	}
 }' > "policies.json.tmp"
-sudo mv policies.json.tmp "$FIREFOX_POLICIES_DIR/policies.json"
+sudo mv policies.json.tmp "$FIREFOX_POLICIES_DIR_ETC/policies.json"
