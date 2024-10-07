@@ -1,7 +1,9 @@
 #!/bin/bash
 ### Install packages ###
-sudo apt update && sudo apt upgrade -y && sudo apt install -y vlc gparted jupyter neovim
-sudo snap refresh
+sudo dnf upgrade -y
+dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y vlc gparted neovim python3-notebook mathjax sscg
 
 
 ### Customize settings ###
